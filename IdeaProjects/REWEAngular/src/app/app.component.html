@@ -1,0 +1,16 @@
+<div class="message-container">
+  <h2>{{ title }}</h2>
+
+  <!-- Überprüfe, ob Nachrichten vorhanden sind und zeige sie an -->
+  <div *ngIf="kafkaMessages.length > 0">
+    <h3>Empfangene Nachrichten:</h3>
+    <ul>
+      <li *ngFor="let message of kafkaMessages">{{ message }}</li>
+    </ul>
+  </div>
+
+  <!-- Wenn keine Nachrichten vorhanden sind -->
+  <div *ngIf="kafkaMessages.length === 0">
+    <p>Es wurden noch keine Nachrichten empfangen.</p>
+  </div>
+</div>

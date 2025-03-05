@@ -1,0 +1,16 @@
+.dashboard {
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.recall-item {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px;
+  cursor: pointer;
+  background-color: #f9f9f9;
+}
+
+.recall-item:hover {
+  background-color: #f0f0f0;
+}
