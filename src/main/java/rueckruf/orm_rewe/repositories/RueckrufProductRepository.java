@@ -1,9 +1,7 @@
-package rueckruf.orm_rewe;
+package rueckruf.orm_rewe.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
-import java.util.List;
+import rueckruf.orm_rewe.entity.RueckrufProduct;
 
 public interface RueckrufProductRepository extends JpaRepository<RueckrufProduct, Long> {
 }

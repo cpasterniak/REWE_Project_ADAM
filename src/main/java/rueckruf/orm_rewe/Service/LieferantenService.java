@@ -1,13 +1,15 @@
-package rueckruf.orm_rewe;
+package rueckruf.orm_rewe.Service;
 
 import org.springframework.stereotype.Service;
+import rueckruf.orm_rewe.entity.Lieferant;
+import rueckruf.orm_rewe.repositories.LieferantRepository;
 
 import java.util.List;
 
 @Service
 public class LieferantenService {
 
-    private final LieferantRepository lieferantRepository;
+    private final rueckruf.orm_rewe.repositories.LieferantRepository lieferantRepository;
 
     public LieferantenService(LieferantRepository lieferantRepository) {
         this.lieferantRepository = lieferantRepository;

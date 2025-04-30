@@ -1,21 +1,21 @@
-package rueckruf.orm_rewe;
+package rueckruf.orm_rewe.Kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-/**
+import rueckruf.orm_rewe.Service.RueckrufServiceAlt;
+import rueckruf.orm_rewe.entity.Rueckruf;
+
 @Service
 public class KafkaProducerExample {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
-    private final RueckrufService rueckrufService;
+    private final rueckruf.orm_rewe.Service.RueckrufServiceAlt rueckrufService;
     private final ObjectMapper objectMapper;
 
-    public KafkaProducerExample(KafkaTemplate<String, String> kafkaTemplate, RueckrufService rueckrufService) {
+    public KafkaProducerExample(KafkaTemplate<String, String> kafkaTemplate, RueckrufServiceAlt rueckrufService) {
         this.kafkaTemplate = kafkaTemplate;
         this.rueckrufService = rueckrufService;
         this.objectMapper = new ObjectMapper();
@@ -41,4 +41,3 @@ public class KafkaProducerExample {
         }
     }
 }
-*/

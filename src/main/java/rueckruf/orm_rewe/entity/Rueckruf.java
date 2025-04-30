@@ -1,7 +1,6 @@
-package rueckruf.orm_rewe;
+package rueckruf.orm_rewe.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Formula;
 
@@ -71,10 +70,19 @@ public class Rueckruf {
     private String rechnungSprache;
     private Integer rechnungVerBetrag;
     private String rechnungKontrolle;
+    private String status;
 
     @OneToMany(mappedBy = "rueckruf", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<RueckrufProduct> products = new ArrayList<>();
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Long getRueckrufId() {
         return rueckrufId;

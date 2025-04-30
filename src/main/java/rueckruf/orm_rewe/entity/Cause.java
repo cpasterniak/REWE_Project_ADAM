@@ -1,7 +1,5 @@
-package rueckruf.orm_rewe;
+package rueckruf.orm_rewe.entity;
 import jakarta.persistence.*;
-
-import java.util.List;
 
 @Entity
 public class Cause {

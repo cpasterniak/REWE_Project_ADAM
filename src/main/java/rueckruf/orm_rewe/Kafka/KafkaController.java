@@ -1,5 +1,5 @@
-/**
-package rueckruf.orm_rewe;
+
+package rueckruf.orm_rewe.Kafka;
 
 import org.springframework.web.bind.annotation.*;
 
@@ -19,4 +19,3 @@ public class KafkaController {
         return "Rueckruf mit ID " + id + " gesendet!";
     }
 }
-*/
