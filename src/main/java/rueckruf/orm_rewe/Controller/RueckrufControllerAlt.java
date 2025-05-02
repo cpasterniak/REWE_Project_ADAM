@@ -1,4 +1,4 @@
-package rueckruf.orm_rewe.Controller;
+/**package rueckruf.orm_rewe.Controller;
 
 import org.springframework.web.bind.annotation.*;
 import rueckruf.orm_rewe.Service.RueckrufServiceAlt;
@@ -87,4 +87,4 @@ public class RueckrufControllerAlt {
             return products;
         }
     }
-}
+}*/

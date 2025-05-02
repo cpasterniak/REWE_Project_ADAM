@@ -1,4 +1,4 @@
-package rueckruf.orm_rewe.Service;
+/**package rueckruf.orm_rewe.Service;
 
 import org.springframework.stereotype.Service;
 import rueckruf.orm_rewe.entity.Product;
@@ -34,9 +34,7 @@ public class RueckrufService {
             listMap.computeIfAbsent(p.getRueckruf(),k -> new ArrayList<>()).add(p.getProduct());
         }
         for (Rueckruf r : listMap.keySet()) {
-            RueckrufWithProduct rwp = new RueckrufWithProduct();
-            rwp.setProductList(listMap.get(r));
-            rwp.setRueckruf(r);
+            RueckrufWithProduct rwp = new RueckrufWithProduct(r, listMap.get(r));
             rueckrufe.add(rwp);
         }
         this.rueckrufWithProduct = rueckrufe;
@@ -146,7 +144,7 @@ public class RueckrufService {
                     int monthTo = Integer.parseInt(to);
                     int month = rueckruf.getMonth();
                     return month >= monthFrom && month <= monthTo;
-                case "prueNumber":
+                case "pruenumber":
                     int prueFrom = Integer.parseInt(from);
                     int prueTo = Integer.parseInt(to);
                     int prue = rueckruf.getPrueNumber();
@@ -155,7 +153,12 @@ public class RueckrufService {
                     LocalDate prueFreigabeFrom = LocalDate.parse(from);
                     LocalDate prueFreigabeTo = LocalDate.parse(to);
                     LocalDate prueFreigabe = rueckruf.getPrueFreigabe();
-                    return prueFreigabe.isBefore(prueFreigabeFrom) && prueFreigabe <= prueTo;
+                    return prueFreigabe.isAfter(prueFreigabeFrom) && prueFreigabe.isBefore(prueFreigabeTo);
+                case "pi_income_date":
+                    LocalDate piIncomeDateFrom = LocalDate.parse(from);
+                    LocalDate piIncomeDateTo = LocalDate.parse(to);
+                    LocalDate piIncomeDate = rueckruf.getPiIncomeDate();
+                    return piIncomeDate.isAfter(piIncomeDateFrom) && piIncomeDate.isBefore(piIncomeDateTo);
                 case "artikelanzahlprue":
                     int artikelFrom = Integer.parseInt(from);
                     int artikelTo = Integer.parseInt(to);
@@ -218,11 +221,124 @@ public class RueckrufService {
                 return products.stream().anyMatch(p ->
                         p.getProductBezeichnungMarkenname() != null &&
                                 p.getProductBezeichnungMarkenname().equalsIgnoreCase(value));
-            case ""
-            // Add more fields as needed
+            case "day":
+                return rueckruf.getDay() != null && rueckruf.getDay().equalsIgnoreCase(value);
+            case "meldung":
+                return rueckruf.getMeldung() != null &&
+                        rueckruf.getMeldung().toString().equalsIgnoreCase(value);
+
+            case "formular":
+                return rueckruf.getFormular() != null &&
+                        rueckruf.getFormular().toString().equalsIgnoreCase(value);
+
+            case "cm":
+            case "qm":
+            case "bm":
+            case "pm":
+                String person = column.equals("cm") ? rueckruf.getCm() :
+                        column.equals("qm") ? rueckruf.getQm() :
+                                column.equals("bm") ? rueckruf.getBm() : rueckruf.getPm();
+                return person != null && person.equalsIgnoreCase(value);
+
+            case "mandatar":
+                return rueckruf.getMandatar() != null &&
+                        rueckruf.getMandatar().equalsIgnoreCase(value);
+
+            case "rechnung_sprache":
+                return rueckruf.getRechnungSprache() != null &&
+                        rueckruf.getRechnungSprache().equalsIgnoreCase(value);
+
+            case "rechnung_kontrolle":
+                return rueckruf.getRechnungKontrolle() != null &&
+                        rueckruf.getRechnungKontrolle().equalsIgnoreCase(value);
+            // Felder aus Lieferant
+            case "lieferant":
+            case "lieferantenname":
+                return rueckruf.getLieferant() != null &&
+                        rueckruf.getLieferant().getLieferantenname() != null &&
+                        rueckruf.getLieferant().getLieferantenname().equalsIgnoreCase(value);
+
+            case "lieferantadress":
+                return rueckruf.getLieferant() != null &&
+                        rueckruf.getLieferant().getLieferantadress() != null &&
+                        rueckruf.getLieferant().getLieferantadress().equalsIgnoreCase(value);
+
+            // Felder aus Produzent
+            case "produzent":
+            case "produzentname":
+                return rueckruf.getProduzent() != null &&
+                        rueckruf.getProduzent().getProduzentname() != null &&
+                        rueckruf.getProduzent().getProduzentname().equalsIgnoreCase(value);
+
+            case "produzentadress":
+                return rueckruf.getProduzent() != null &&
+                        rueckruf.getProduzent().getProduzentadress() != null &&
+                        rueckruf.getProduzent().getProduzentadress().equalsIgnoreCase(value);
+
+            // Felder aus Cause
+            case "cause_category":
+                return rueckruf.getCause() != null &&
+                        String.valueOf(rueckruf.getCause().getCauseCategory()).equalsIgnoreCase(value);
+
+            case "cause_option":
+                return rueckruf.getCause() != null &&
+                        String.valueOf(rueckruf.getCause().getCauseOption()).equalsIgnoreCase(value);
+
+            case "detailed_cause":
+                return rueckruf.getCause() != null &&
+                        rueckruf.getCause().getDetailedCause() != null &&
+                        rueckruf.getCause().getDetailedCause().equalsIgnoreCase(value);
+
+            case "billa":
+            case "billa_plus":
+            case "billa_kaufleute":
+            case "penny":
+            case "bipa":
+            case "sutterluety":
+            case "adeg":
+            case "ghkooperation":
+                if (rueckruf.getCause() == null) return false;
+                Boolean flagValue = switch (column.toLowerCase()) {
+                    case "billa" -> rueckruf.getCause().getBilla();
+                    case "billa_plus" -> rueckruf.getCause().getBillaPlus();
+                    case "billa_kaufleute" -> rueckruf.getCause().getBillaKaufleute();
+                    case "penny" -> rueckruf.getCause().getPenny();
+                    case "bipa" -> rueckruf.getCause().getBipa();
+                    case "sutterluety" -> rueckruf.getCause().getSutterluety();
+                    case "adeg" -> rueckruf.getCause().getAdeg();
+                    default -> rueckruf.getCause().getGhKooperation();
+                };
+                return flagValue != null && flagValue.toString().equalsIgnoreCase(value);
+
+            // Felder aus Product
+            case "specific_articlenumber":
+                return products.stream().anyMatch(p ->
+                        p.getSpecificArticlenumber() != null &&
+                                p.getSpecificArticlenumber().equalsIgnoreCase(value));
+
+            case "mhd_charge":
+                return products.stream().anyMatch(p ->
+                        p.getMhdCharge() != null &&
+                                p.getMhdCharge().equalsIgnoreCase(value));
+
+            case "not_product_bezeichnung":
+                return products.stream().anyMatch(p ->
+                        p.getNotProductBezeichnung() != null &&
+                                p.getNotProductBezeichnung().equalsIgnoreCase(value));
+
+            case "not_product_bezeichnung_markenname":
+                return products.stream().anyMatch(p ->
+                        p.getNotProductBezeichnungMarkenname() != null &&
+                                p.getNotProductBezeichnungMarkenname().equalsIgnoreCase(value));
+
+            case "not_product_bezeichnung_grammatur":
+                return products.stream().anyMatch(p ->
+                        p.getNotProductBezeichnungGrammatur() != null &&
+                                p.getNotProductBezeichnungGrammatur().equalsIgnoreCase(value));
+
             default:
                 return false;
         }
     }
-}
+}*/
 

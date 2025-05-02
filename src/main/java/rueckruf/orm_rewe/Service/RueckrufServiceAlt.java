@@ -1,4 +1,4 @@
-package rueckruf.orm_rewe.Service;
+/**package rueckruf.orm_rewe.Service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,4 +109,4 @@ public class RueckrufServiceAlt {
         return string.split(":");
     }
 
-}
+}*/
