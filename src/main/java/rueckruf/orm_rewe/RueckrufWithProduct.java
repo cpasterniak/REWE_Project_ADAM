@@ -1,10 +1,7 @@
-package rueckruf.orm_rewe.entity;
+package rueckruf.orm_rewe;
 
-import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
