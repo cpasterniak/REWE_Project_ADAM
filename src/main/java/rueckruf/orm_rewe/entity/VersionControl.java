@@ -1,8 +1,13 @@
 package rueckruf.orm_rewe.entity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.time.LocalDateTime;
 
+@Getter
 @Entity
+@Setter
 public class VersionControl {
 
     @Id
@@ -15,38 +20,6 @@ public class VersionControl {
     @ManyToOne
     @JoinColumn(name = "rueckruf_id")
     private Rueckruf rueckruf;
-
-    public Long getVersionId() {
-        return versionId;
-    }
-
-    public void setVersionId(Long versionId) {
-        this.versionId = versionId;
-    }
-
-    public LocalDateTime getVersionDate() {
-        return versionDate;
-    }
-
-    public void setVersionDate(LocalDateTime versionDate) {
-        this.versionDate = versionDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Rueckruf getRueckruf() {
-        return rueckruf;
-    }
-
-    public void setRueckruf(Rueckruf rueckruf) {
-        this.rueckruf = rueckruf;
-    }
 }
 
 

@@ -1,7 +1,11 @@
 package rueckruf.orm_rewe.entity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
 @Entity
+@Setter
 public class Lieferant {
 
     @Id
@@ -10,32 +14,6 @@ public class Lieferant {
 
     private String lieferantenname;
     private String lieferantadress;
-
-    public Long getLieferantId() {
-        return lieferantId;
-    }
-
-    public void setLieferantId(Long lieferantId) {
-        this.lieferantId = lieferantId;
-    }
-
-    public String getLieferantenname() {
-        return lieferantenname;
-    }
-
-    public void setLieferantenname(String lieferantenname) {
-        this.lieferantenname = lieferantenname;
-    }
-
-    public String getLieferantadress() {
-        return lieferantadress;
-    }
-
-    public void setLieferantadress(String lieferantadress) {
-        this.lieferantadress = lieferantadress;
-    }
-
-    // Getters & Setters
 }
 
 

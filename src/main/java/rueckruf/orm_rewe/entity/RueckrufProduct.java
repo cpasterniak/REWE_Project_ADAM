@@ -3,8 +3,12 @@ package rueckruf.orm_rewe.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class RueckrufProduct {
 
     @Id
@@ -20,29 +24,5 @@ public class RueckrufProduct {
     @JoinColumn(name = "product_id")
     @JsonManagedReference("product-ref")
     private Product product;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Rueckruf getRueckruf() {
-        return rueckruf;
-    }
-
-    public void setRueckruf(Rueckruf rueckruf) {
-        this.rueckruf = rueckruf;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 }
 
