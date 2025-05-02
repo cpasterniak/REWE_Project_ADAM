@@ -26,17 +26,16 @@ public class Rueckruf {
     private Integer halfyear;
     private Integer month;
     private String day;
-
-    private Integer prueNumber;
-    private LocalDate prueFreigabe;
+    private Integer pruenumber;
+    private LocalDate pruefreigabe;
 
     private String art;
     private LocalDate artdate;
-    private LocalDate piIncomeDate;
+    private LocalDate piincomedate;
 
     private String type;
-    private Boolean isMarke;
-    private Integer artikelanzahlPrue;
+    private Boolean ismarke;
+    private Integer artikelanzahlprue;
 
     private LocalDate kassasperre;
 
@@ -45,15 +44,15 @@ public class Rueckruf {
 
     private LocalDate createkundeninfo;
     private Boolean meldung;
-    private LocalDate meldungDate;
+    private LocalDate meldungdate;
 
     private String cm, qm, bm, pm;
 
-    private LocalDateTime bearbeitungBeginn;
-    private LocalDateTime bearbeitungEnde;
+    private LocalDateTime bearbeitungbeginn;
+    private LocalDateTime bearbeitungende;
 
     private String artsperr;
-    private Integer anzahlArtsperr;
+    private Integer anzahlartsperr;
 
     private Boolean formular;
     private String mandatar;
@@ -71,11 +70,11 @@ public class Rueckruf {
     @JoinColumn(name = "produzent_id")
     private Produzent produzent;
 
-    private String rechnungName;
-    private Integer rechnungBetrag;
-    private String rechnungSprache;
-    private Integer rechnungVerBetrag;
-    private String rechnungKontrolle;
+    private String rechnungname;
+    private Integer rechnungbetrag;
+    private String rechnungsprache;
+    private Integer rechnungverbetrag;
+    private String rechnungkontrolle;
     private String status;
 
     @OneToMany(mappedBy = "rueckruf", cascade = CascadeType.ALL, orphanRemoval = true)

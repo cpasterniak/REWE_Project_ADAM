@@ -1,8 +1,10 @@
 package rueckruf.orm_rewe;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,15 +40,21 @@ public class RueckrufServiceSQL {
         return this.rueckrufWithProduct;
     }
 
-    public List<RueckrufWithProduct> findByFilter(String filter) {
-        JoinRueckrufProduct();
-        System.out.println(filter);
-        System.out.println(this.rueckrufRepository.findByQm(filter).size());
-        for(Rueckruf r : this.rueckrufRepository.findByQm(filter)) {
-            System.out.println("Hello");
-            System.out.println(r.getLieferant().getLieferantenname());
-        }
-        return this.rueckrufWithProduct;
+    public List<Rueckruf> findByFilter(String filter) {
+        return findeRueckrufeNachFeld(filter.split(":")[0], filter.split(":")[1]);
+    }
+
+    public List<Rueckruf> findeRueckrufeNachFeld(String feldname, String wert) {
+        SearchCriteria s = new SearchCriteria(feldname, ":", wert);
+        System.out.println(s.getOperation());
+        RueckrufSpecification r = new RueckrufSpecification(s);
+        return rueckrufRepository.findAll(Specification.where(r));
+    }
+
+
+    private String capitalize(String input) {
+        if (input == null || input.isEmpty()) return input;
+        return input.substring(0, 1).toUpperCase() + input.substring(1);
     }
 
     public void JoinRueckrufProduct() {

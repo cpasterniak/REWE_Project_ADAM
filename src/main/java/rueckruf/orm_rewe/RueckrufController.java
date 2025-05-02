@@ -26,7 +26,7 @@ public class RueckrufController {
     }
 
     @GetMapping("/filter")
-    public List<RueckrufWithProduct> getRueckrufByFilter(@RequestParam String filter) {
+    public List<Rueckruf> getRueckrufByFilter(@RequestParam String filter) {
         return rueckrufServiceSQL.findByFilter(filter);
     }
 }
