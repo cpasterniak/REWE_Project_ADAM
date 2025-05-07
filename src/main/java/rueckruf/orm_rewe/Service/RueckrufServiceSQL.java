@@ -15,10 +15,7 @@ import rueckruf.orm_rewe.repository.ProductRepository;
 import rueckruf.orm_rewe.repository.RueckrufProductRepository;
 import rueckruf.orm_rewe.repository.RueckrufRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class RueckrufServiceSQL {
@@ -52,10 +49,9 @@ public class RueckrufServiceSQL {
         return this.rueckrufWithProduct;
     }
 
-    public Rueckruf findByAnything(String query) {
+    public List<Rueckruf> findByAnything(String query) {
         String sql = new DynamischeFilterung(query).getQuery();
-
-        jdbcTemplate.query(sql, Rueckruf.class);
+        return Collections.singletonList(jdbcTemplate.queryForObject(sql, Rueckruf.class));
     }
 
     public void JoinRueckrufProduct() {

@@ -12,10 +12,11 @@ public class DynamischeFilterung {
 
     public DynamischeFilterung(String filter) {
         this.query = filter;
-        parseQuery(filter);
+        Abfrage ergebnis = parseQuery(filter);
+        this.query = new SELECT(ergebnis).toString();
     }
 
-    public String parseQuery(String query) {
+    public Abfrage parseQuery(String query) {
         String[] columns = query.split(";");
         Map<String, String[]> filters = new HashMap<>();
         for (String column : columns) {
@@ -24,8 +25,9 @@ public class DynamischeFilterung {
         return simpleSQLQuery(filters);
     }
 
-    public String simpleSQLQuery(Map<String, String[]> filters) {
+    public Abfrage simpleSQLQuery(Map<String, String[]> filters) {
         Abfrage v1 = null;
+        if(filters.keySet().size() == 1) {return new Value(filters.keySet().iterator().next() + " = " + filters.get(filters.keySet().iterator().next())[0]);}
         for(String columns : filters.keySet()) {
             int length = filters.get(columns).length;
             if(filters.get(columns).length > 1) {
@@ -40,6 +42,6 @@ public class DynamischeFilterung {
                 v1 = new ADD(v1, new Value(columns + " = " + filters.get(columns)[0]));
             }
         }
-        return v1.toString();
+        return v1;
     }
 }
