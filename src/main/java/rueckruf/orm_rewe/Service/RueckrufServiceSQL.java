@@ -2,8 +2,10 @@ package rueckruf.orm_rewe.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import rueckruf.orm_rewe.RueckrufSpecification;
+import rueckruf.orm_rewe.SQLSELECT.DynamischeFilterung;
 import rueckruf.orm_rewe.SearchCriteria;
 import rueckruf.orm_rewe.entity.Product;
 import rueckruf.orm_rewe.entity.Rueckruf;
@@ -23,15 +25,17 @@ public class RueckrufServiceSQL {
     private final RueckrufRepository rueckrufRepository;
     private final ProductRepository productRepository;
     private final RueckrufProductRepository rueckrufProductRepository;
+    private final JdbcTemplate jdbcTemplate;
 
     private List<RueckrufWithProduct> rueckrufWithProduct;
 
     @Autowired
     public RueckrufServiceSQL(RueckrufRepository rueckrufRepository,
-                              ProductRepository productRepository, RueckrufProductRepository rueckrufProductRepository) {
+                              ProductRepository productRepository, RueckrufProductRepository rueckrufProductRepository, JdbcTemplate jdbcTemplate) {
         this.rueckrufRepository = rueckrufRepository;
         this.productRepository = productRepository;
         this.rueckrufProductRepository = rueckrufProductRepository;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     public RueckrufWithProduct findById(Long id) {
@@ -48,21 +52,10 @@ public class RueckrufServiceSQL {
         return this.rueckrufWithProduct;
     }
 
-    public List<Rueckruf> findByFilter(String filter) {
-        return findeRueckrufeNachFeld(filter.split(":")[0], filter.split(":")[1]);
-    }
+    public Rueckruf findByAnything(String query) {
+        String sql = new DynamischeFilterung(query).getQuery();
 
-    public List<Rueckruf> findeRueckrufeNachFeld(String feldname, String wert) {
-        SearchCriteria s = new SearchCriteria(feldname, ":", wert);
-        System.out.println(s.getOperation());
-        RueckrufSpecification r = new RueckrufSpecification(s);
-        return rueckrufRepository.findAll(Specification.where(r));
-    }
-
-
-    private String capitalize(String input) {
-        if (input == null || input.isEmpty()) return input;
-        return input.substring(0, 1).toUpperCase() + input.substring(1);
+        jdbcTemplate.query(sql, Rueckruf.class);
     }
 
     public void JoinRueckrufProduct() {
