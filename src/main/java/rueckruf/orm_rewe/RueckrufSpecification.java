@@ -5,6 +5,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
+import rueckruf.orm_rewe.entity.Rueckruf;
 
 public class RueckrufSpecification implements Specification<Rueckruf> {
 

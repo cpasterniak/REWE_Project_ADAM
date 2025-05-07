@@ -1,4 +1,4 @@
-package rueckruf.orm_rewe;
+package rueckruf.orm_rewe.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;

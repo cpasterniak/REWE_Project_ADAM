@@ -67,7 +67,6 @@ public class FilterQuery {
     public FilterQuery(@NotNull String filterQuery) {
         this.filterQuery = filterQuery;
         parsingFilterQuery();
-        System.out.println(SQLFilterQuerySingleTable());
     }
 
     public void parsingFilterQuery() {
@@ -86,41 +85,6 @@ public class FilterQuery {
         return value1 + " OR " + value2;
     }
 
-    public String SQLBetweenValue(String value1, String value2) {
-        return value1 + " BETWEEN " + value2.split("-")[0] + " AND " + value2.split("-")[1];
-    }
-
-    public String SQLFilterQuerySingleTable() {
-        StringBuilder query = new StringBuilder();
-        query.append("SELECT * FROM ");
-        for (String column : filters.keySet()) {
-
-        }
-        return query.toString();
-    }
-
-    /**
-    public String SQLFilterQuerySingleTable() {
-        StringBuilder query = new StringBuilder();
-        query.append("SELECT * FROM rueckruf WHERE ");
-        for (String key : filters.keySet()) {
-            int i = 1;
-            for (String value : filters.get(key)) {
-                System.out.println(filters.get(key).length);
-                System.out.println(filters.size());
-                if(value.contains("-")) {
-                    System.out.println(value);
-                    query.append("BETWEEN ").append(value.split("-")[0]).append(" AND ").append(value.split("-")[1]);
-                } else if(i < filters.get(key).length) query.append(key).append(" = '").append(value).append("' OR ");
-                else if(filters.get(key).length >= filters.size()) query.append(key).append(" = '").append(value).append("' AND ");
-                else query.append(key).append(" = '").append(value).append("';");
-                i++;
-            }
-        }
-        return query.toString();
-    }
-     */
-
     public void checkingColumns() {
         for (String column : filters.keySet()) {
             rueckrufColumns.contains(column);
@@ -128,10 +92,9 @@ public class FilterQuery {
     }
 
     public static void main(String[] args) {
-        String filterQuery = "id:10,20-30;pm:Toni";
+        String filterQuery = "id:10;pm:Toni";
         System.out.println("Start");
         FilterQuery fl = new FilterQuery(filterQuery);
-        fl.parsingFilterQuery();
     }
 
 

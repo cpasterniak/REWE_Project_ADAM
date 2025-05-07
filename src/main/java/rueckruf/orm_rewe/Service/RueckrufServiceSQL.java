@@ -1,10 +1,18 @@
-package rueckruf.orm_rewe;
+package rueckruf.orm_rewe.Service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import rueckruf.orm_rewe.RueckrufSpecification;
+import rueckruf.orm_rewe.SearchCriteria;
+import rueckruf.orm_rewe.entity.Product;
+import rueckruf.orm_rewe.entity.Rueckruf;
+import rueckruf.orm_rewe.entity.RueckrufProduct;
+import rueckruf.orm_rewe.entity.RueckrufWithProduct;
+import rueckruf.orm_rewe.repository.ProductRepository;
+import rueckruf.orm_rewe.repository.RueckrufProductRepository;
+import rueckruf.orm_rewe.repository.RueckrufRepository;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

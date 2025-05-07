@@ -1,8 +1,12 @@
-package rueckruf.orm_rewe;
+package rueckruf.orm_rewe.repository;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import rueckruf.orm_rewe.entity.Cause;
+import rueckruf.orm_rewe.entity.Lieferant;
+import rueckruf.orm_rewe.entity.Produzent;
+import rueckruf.orm_rewe.entity.Rueckruf;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

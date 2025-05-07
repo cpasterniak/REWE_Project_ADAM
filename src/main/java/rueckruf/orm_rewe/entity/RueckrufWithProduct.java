@@ -1,4 +1,4 @@
-package rueckruf.orm_rewe;
+package rueckruf.orm_rewe.entity;
 
 import lombok.Getter;
 import lombok.Setter;
