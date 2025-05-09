@@ -1,5 +1,5 @@
 package rueckruf.orm_rewe.Service;
-
+/**
 import org.springframework.stereotype.Service;
 import rueckruf.orm_rewe.entity.Product;
 import rueckruf.orm_rewe.entity.Rueckruf;
@@ -9,12 +9,14 @@ import rueckruf.orm_rewe.repository.ProductRepository;
 import rueckruf.orm_rewe.repository.RueckrufRepository;
 import rueckruf.orm_rewe.repository.RueckrufProductRepository;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 @Service
 public class RueckrufService {
     private final RueckrufProductRepository rueckrufProductRepository;
-    private RueckrufRepository repo;
+    private static RueckrufRepository repo;
     private ProductRepository productRepo;
     private RueckrufProductRepository rueckrufProductRepo;
     private List<RueckrufWithProduct> rueckrufWithProduct;
@@ -63,21 +65,6 @@ public class RueckrufService {
             System.out.println(rwp.getRueckruf().getArt());
         }
     }
-
-    public static void main(String[] args) {
-        String query = "id:1,2;lieferant:1";
-        String[] columns = query.split(";");
-        Map<String, String[]> filters = new HashMap<>();
-        for (String column : columns) {
-            filters.put(column.split(":")[0], column.split(":")[1].split(","));
-        }
-        for (String r: filters.keySet()) {
-            for (String v : filters.get(r)) {
-                System.out.println(r + ":" + v);
-            }
-        }
-
-    }
-}
+}*/
 
 
