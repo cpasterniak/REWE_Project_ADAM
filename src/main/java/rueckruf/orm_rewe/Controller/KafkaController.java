@@ -1,7 +1,8 @@
 
-package rueckruf.orm_rewe.Kafka;
-/**
+package rueckruf.orm_rewe.Controller;
+
 import org.springframework.web.bind.annotation.*;
+import rueckruf.orm_rewe.Kafka.KafkaProducerExample;
 
 @RestController
 @RequestMapping("/api/kafka")
@@ -18,4 +19,4 @@ public class KafkaController {
         kafkaProducerService.sendRueckrufById(id);
         return "Rueckruf mit ID " + id + " gesendet!";
     }
-}*/
+}

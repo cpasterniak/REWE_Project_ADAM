@@ -15,4 +15,18 @@ public class RueckrufWithProduct {
         this.rueckruf = rueckruf;
         this.productList = productList;
     }
+
+    public RueckrufWithProduct() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        RueckrufWithProduct rwf = (RueckrufWithProduct) o;
+        return rueckruf.equals(rwf.getRueckruf());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.rueckruf.hashCode();
+    }
 }

@@ -1,28 +1,28 @@
 package rueckruf.orm_rewe.Kafka;
-/**
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
-import rueckruf.orm_rewe.Service.RueckrufServiceAlt;
+import rueckruf.orm_rewe.Service.RueckrufServiceSQL;
 import rueckruf.orm_rewe.entity.Rueckruf;
 
 @Service
 public class KafkaProducerExample {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
-    private final rueckruf.orm_rewe.Service.RueckrufServiceAlt rueckrufService;
+    private final rueckruf.orm_rewe.Service.RueckrufServiceSQL rueckrufService;
     private final ObjectMapper objectMapper;
 
-    public KafkaProducerExample(KafkaTemplate<String, String> kafkaTemplate, RueckrufServiceAlt rueckrufService) {
+    public KafkaProducerExample(KafkaTemplate<String, String> kafkaTemplate, RueckrufServiceSQL rueckrufService) {
         this.kafkaTemplate = kafkaTemplate;
         this.rueckrufService = rueckrufService;
         this.objectMapper = new ObjectMapper();
     }
 
     public void sendRueckrufById(Long id) {
-        Rueckruf rueckruf = rueckrufService.getRueckrufById(id);
+        Rueckruf rueckruf = rueckrufService.findById(id);
         if (rueckruf == null) {
             System.out.println("Rueckruf mit ID " + id + " nicht gefunden.");
             return;
@@ -40,4 +40,4 @@ public class KafkaProducerExample {
             e.printStackTrace();
         }
     }
-}*/
+}

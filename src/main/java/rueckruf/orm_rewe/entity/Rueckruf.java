@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -19,6 +20,7 @@ import java.util.List;
 public class Rueckruf {
 
     @Id
+    @Column(name="rueckruf_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rueckrufId;
 
@@ -80,6 +82,23 @@ public class Rueckruf {
     @OneToMany(mappedBy = "rueckruf", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<RueckrufProduct> products = new ArrayList<>();
+
+    public boolean equals(Rueckruf o) {
+        return this.rueckrufId.equals(o.getRueckrufId());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rueckruf rueckruf = (Rueckruf) o;
+        return rueckrufId.equals(rueckruf.rueckrufId); // Vergleich nach ID
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(rueckrufId); // Konsistenter Hash basierend auf ID
+    }
 
 }
 
